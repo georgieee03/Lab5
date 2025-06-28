@@ -1,8 +1,8 @@
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 
-`include "top.sv"
-`include "tb/instr_gen.sv"
+`include "../top.sv"
+`include "instr_gen.sv"
 
 module top_tb;
   logic clk = 0;
