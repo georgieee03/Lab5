@@ -97,13 +97,18 @@ class instr_gen extends uvm_sequence #(instruction);
       
       // Setup for branch taken
       if (beq_instr.branch_taken) {
-        assert(setup1.randomize() with { opcode == 6'h0; funct == 6'h20; rd == beq_instr.rs; }); // ADD rs, r_val, r_val
-        assert(setup2.randomize() with { opcode == 6'h0; funct == 6'h20; rd == beq_instr.rt; rs == beq_instr.rs; rt == 0; }); // ADD rt, rs, $zero
+        assert(setup1.randomize() with { opcode == 6'h00; funct == 6'h20; rd == beq_instr.rs; }); // ADD rs, r_val, r_val
+        assert(setup2.randomize() with { opcode == 6'h00; funct == 6'h20;
+                                          rd == beq_instr.rt;
+                                          rs == beq_instr.rs;
+                                          rt == 5'd0; }); // ADD rt, rs, $zero
       } 
       // Setup for branch not taken
       else {
-        assert(setup1.randomize() with { opcode == 6'h0; funct == 6'h20; rd == beq_instr.rs; }); // ADD rs, ...
-        assert(setup2.randomize() with { opcode == 6'h0; funct == 6'h20; rd == beq_instr.rt; rs != beq_instr.rs; }); // ADD rt, ...
+        assert(setup1.randomize() with { opcode == 6'h00; funct == 6'h20; rd == beq_instr.rs; }); // ADD rs, ...
+        assert(setup2.randomize() with { opcode == 6'h00; funct == 6'h20;
+                                          rd == beq_instr.rt;
+                                          rs != beq_instr.rs; }); // ADD rt, ...
       }
       instr_stream.push_back(setup1);
       instr_stream.push_back(setup2);
