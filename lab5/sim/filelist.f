@@ -22,4 +22,6 @@
 // Note: top.sv is included in top_tb.sv, so it's not listed here
 
 // Testbench files
+../tb/instruction.sv
+../tb/instr_gen.sv
 ../tb/top_tb.sv 
