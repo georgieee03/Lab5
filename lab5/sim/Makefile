@@ -1,7 +1,7 @@
 # Makefile for MIPS Pipelined Processor Verification
 
 # Default target
-all: comp run
+all: run
 
 # Tool setup
 VCS = vcs -full64 -sverilog -ntb_opts uvm -debug_access+all +define+SYNOPSYS +acc
@@ -12,15 +12,15 @@ comp:
 	$(VCS) -f filelist.f -l comp.log
 
 # Simulation target
-run:
+run: comp
 	./simv -l sim.log +ntb_random_seed=1
 
 # Run with a specific seed
-run-seed:
+run-seed: comp
 	./simv -l sim.log +ntb_random_seed=$(SEED)
 
 # GUI target
-gui:
+gui: comp
 	$(VERDI)
 
 # Clean target
